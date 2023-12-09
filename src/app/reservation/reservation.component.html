@@ -1,0 +1,47 @@
+<!-- src/app/reservation/reservation.component.html -->
+
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-center">Reservation</h2>
+        <form (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name:</label>
+            <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="date" class="form-label">Date:</label>
+            <input type="date" id="date" name="date" [(ngModel)]="date" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="time" class="form-label">Time:</label>
+            <select id="time" name="time" [(ngModel)]="selectedTime" class="form-select">
+              <option value="" disabled>Select time</option>
+              <ng-container *ngFor="let hour of timeOptions">
+                <option [value]="hour">{{ hour }}</option>
+              </ng-container>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="trainer" class="form-label">Trainer:</label>
+            <select id="trainer" name="trainer" [(ngModel)]="selectedTrainer" class="form-select">
+              <option value="" disabled>Select trainer</option>
+              <ng-container *ngFor="let trainer of trainers">
+                <option [value]="trainer.id">{{ trainer.name }}</option>
+              </ng-container>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
