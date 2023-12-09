@@ -1,14 +1,12 @@
-<!-- src/app/reservation/reservation.component.html -->
-
 <div class="container mt-5">
     <div class="card">
       <div class="card-body">
         <h2 class="card-title text-center">Reservation</h2>
         <form (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-                <label for="memberId" class="form-label">Member ID:</label>
-                <input type="text" id="memberId" name="memberId" [(ngModel)]="memberId" class="form-control" required>
-              </div>
+          <div class="mb-3">
+            <label for="memberId" class="form-label">Member ID:</label>
+            <input type="text" id="memberId" name="memberId" [(ngModel)]="memberId" class="form-control" required>
+          </div>
 
           <div class="mb-3">
             <label for="date" class="form-label">Date:</label>
@@ -34,6 +32,8 @@
               </ng-container>
             </select>
           </div>
+
+          <div class="alert alert-danger" role="alert" *ngIf="showErrorMessage">{{ errorMessage }}</div>
 
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

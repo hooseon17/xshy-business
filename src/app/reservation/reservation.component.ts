@@ -15,6 +15,8 @@ export class ReservationComponent {
   selectedTrainer: number | undefined;
   timeOptions: string[] = [];
   trainers: { id: number; name: string }[] = [];
+  errorMessage: string = '';
+  showErrorMessage: boolean = false;
 
 
   constructor(private http: HttpClient) {
@@ -55,6 +57,52 @@ export class ReservationComponent {
     console.log('Date:', this.date);
     console.log('Selected Time:', this.selectedTime);
     console.log('Selected Trainer:', this.selectedTrainer);
+
+    const reserveUrl = 'https://example.com/reserve'; // Replace with your actual API endpoint
+
+    const reservationData = {
+      memberId: this.memberId,
+      date: this.date,
+      time: this.selectedTime,
+      trainerId: this.selectedTrainer,
+    };
+
+    this.http.post(reserveUrl, reservationData).subscribe(
+      () => {
+        // On success
+        alert('Submitted successfully');
+        this.clearFields();
+      },
+      (error) => {
+        console.error('Error submitting reservation:', error);
+
+        // On failure
+        if (error.status === 400 && error.error?.message === 'TrainerNotAvailable') {
+          // If the trainer is not available at the selected time
+          this.showWarningMessage();
+        } else {
+          // For other errors
+          //alert('Failed to submit reservation. Please try again.');
+          this.showWarningMessage();
+        }
+      }
+    );
     // Continue with your form submission logic
+  }
+
+  private showWarningMessage() {
+    // Display warning message, update styles
+    this.errorMessage = 'The trainer is not available at the time. Please select other time.';
+    this.showErrorMessage = true;
+  }
+
+  private clearFields() {
+    // Clear form fields and reset styles
+    this.memberId = '';
+    this.date = '';
+    this.selectedTime = '';
+    this.selectedTrainer = undefined;
+
+    this.showErrorMessage = false;
   }
 }
