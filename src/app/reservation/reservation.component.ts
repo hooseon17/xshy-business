@@ -9,8 +9,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./reservation.component.css'],
 })
 export class ReservationComponent {
-  firstName: string = '';
-  lastName: string = '';
+  memberId: string = '';
   date: string = '';
   selectedTime: string = '';
   selectedTrainer: number | undefined;
